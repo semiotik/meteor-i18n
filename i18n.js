@@ -10,6 +10,7 @@ var defaultLanguage = 'en';
 var missingTemplate = '';
 var showMissing     = false;
 var dep             = new Deps.Dependency();
+var helperName = 'i18n';
 
 
 /*
@@ -30,6 +31,7 @@ i18n = function() {
   args.shift();
 
   
+  
   if(typeof label !== 'string') return '';
   var str = (maps[language] && maps[language][label]) ||
          (maps[defaultLanguage] && maps[defaultLanguage][label]) ||
@@ -39,16 +41,17 @@ i18n = function() {
   return str;
 };
 
+
 /*
   Register handlebars helper
 */
 if(Meteor.isClient) {
   if(UI) {
-    UI.registerHelper('i18n', function () {
+    UI.registerHelper(helperName, function () {
       return i18n.apply(this, arguments);
     });
   } else if(Handlebars) {
-    Handlebars.registerHelper('i18n', function () {
+    Handlebars.registerHelper(helperName, function () {
       return i18n.apply(this, arguments);
     });
   }
@@ -81,6 +84,11 @@ i18n.getLanguage = function() {
   dep.depend();
   return language;
 };
+
+i18n.setHelperName = function(name) {
+  helperName = name;
+  dep.changed();
+}
 
 i18n.showMissing = function(template) {
   if(template) {
