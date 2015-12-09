@@ -2,7 +2,7 @@ Package.describe({
   name:     'semiotik:i18n',
   version:  '0.4.3',
   summary:  'Internalization: simplest package',
-  git:      'https://github.com/anticoders/meteor-i18n.git',
+  git:      'https://github.com/semiotik/meteor-i18n.git',
 });
 
 Package.on_use(function (api, where) {
